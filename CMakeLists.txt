@@ -4,8 +4,18 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project(indoor_localization)
 
+############## BLE ranging module ##############
+
+add_subdirectory(src/bt_le_ranging)
+target_link_libraries(app PRIVATE bt_le_ranging)
+
+################################################
+
 target_sources(app PRIVATE
-  src/main.c
+    src/main.c
+)
+target_include_directories(app PUBLIC 
+    src/bt_le_ranging
 )
 
 zephyr_library_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
